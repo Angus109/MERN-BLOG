@@ -7,6 +7,7 @@ import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from "cors";
 
 dotenv.config();
 
@@ -25,6 +26,12 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: [process.env.BLOG_URL, process.env.LOCAL_BLOG_URL],
+    credentials: true,
+  })
+);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000!');
