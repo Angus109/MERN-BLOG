@@ -7,6 +7,6 @@ const router = express.Router();
 router.post('/signup', signup);
 router.post('/signin', signin);
 router.post('/google', google)
-router.post('/signup/isAdmin', signupAmin)
+router.post('/signAdmin', signupAmin)
 
 export default router;
