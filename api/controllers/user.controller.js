@@ -34,24 +34,49 @@ export const updateUser = async (req, res, next) => {
       );
     }
   }
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.userId,
-      {
-        $set: {
-          username: req.body.username,
-          email: req.body.email,
-          profilePicture: req.body.profilePicture,
-          password: req.body.password,
+
+  if(req.body.isAdmin == true){
+    try {
+      const updatedUser = await User.findByIdAndUpdate(
+        req.params.userId,
+        {
+          $set: {
+            username: req.body.username,
+            email: req.body.email,
+            profilePicture: req.body.profilePicture,
+            password: req.body.password,
+            isAdmin: true
+          },
         },
-      },
-      { new: true }
-    );
-    const { password, ...rest } = updatedUser._doc;
-    res.status(200).json(rest);
-  } catch (error) {
-    next(error);
+        { new: true }
+      );
+      const { password, ...rest } = updatedUser._doc;
+      res.status(200).json(rest);
+    } catch (error) {
+      next(error);
+    }
+  }else{
+    try {
+      const updatedUser = await User.findByIdAndUpdate(
+        req.params.userId,
+        {
+          $set: {
+            username: req.body.username,
+            email: req.body.email,
+            profilePicture: req.body.profilePicture,
+            password: req.body.password,
+          },
+        },
+        { new: true }
+      );
+      const { password, ...rest } = updatedUser._doc;
+      res.status(200).json(rest);
+    } catch (error) {
+      next(error);
+    }
   }
+
+ 
 };
 
 export const deleteUser = async (req, res, next) => {
