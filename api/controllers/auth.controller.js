@@ -33,6 +33,42 @@ export const signup = async (req, res, next) => {
   }
 };
 
+
+
+export const signupAmin = async (req, res, next) => {
+  const { username, email, password, isAdmin} = req.body;
+
+  if (
+    !username ||
+    !email ||
+    !password ||
+    !isAdmin ||
+    username === '' ||
+    email === '' ||
+    password === '' ||
+    isAdmin === ''
+  ) {
+    next(errorHandler(400, 'All fields are required'));
+  }
+
+  const hashedPassword = bcryptjs.hashSync(password, 10);
+
+  const newUser = new User({
+    username,
+    email,
+    password: hashedPassword,
+    isAdmin
+  });
+
+  try {
+    await newUser.save();
+    res.json('Signup successful');
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
