@@ -8,8 +8,9 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('/api/post/getPosts');
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/post/getPosts`);
       const data = await res.json();
+      console.log(data)
       setPosts(data.posts);
     };
     fetchPosts();
@@ -18,6 +19,7 @@ export default function Home() {
     <div>
       <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
         <h1 className='text-3xl font-bold lg:text-6xl'>Welcome to my Blog</h1>
+        {console.log(import.meta.env.VITE_BACKEND_URL)}
         <p className='text-gray-500 text-xs sm:text-sm'>
           Here you'll find a variety of articles and tutorials on topics such as
           web development, software engineering, and programming languages.
